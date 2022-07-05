@@ -1,24 +1,20 @@
 #!/usr/bin/python3
-"""Contains the clas "Student"""
+"""student class module"""
 
 
 class Student:
-    """Representation of a student"""
+    """a class we shall json"""
+
     def __init__(self, first_name, last_name, age):
-        """Initializes the student"""
+        """init method"""
         self.first_name = first_name
         self.last_name = last_name
         self.age = age
 
     def to_json(self, attrs=None):
-        """returns a dictionary representation of a Student instance
-        with specified attributes"""
-        if attrs is None:
-            return self.__dict__
-        new_dict = {}
-        for a in attrs:
-            try:
-                new_dict[a] = self.__dict__[a]
-            except:
-                pass
-        return new_dict
+        """get dict, names if only string"""
+        if type(attrs) is list and all([type(a) == str for a in attrs]):
+            return {name: value for name, value in self.__dict__.items()
+                    if name in attrs}
+        else:
+            return self.__dict__.copy()
